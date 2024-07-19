@@ -50,23 +50,43 @@ function hapus($id){
 
 function cekDataTranskrip($npm){
     global $conn;
-    $id_prodi = "SELECT mahasiswa.id_program_studi FROM mahasiswa WHERE npm=$npm";
+    // $id_prodi = "SELECT mahasiswa.id_program_studi FROM mahasiswa WHERE npm=$npm";
     // $nama_prodi = "SELECT * FROM program_studi WHERE id_program_studi=$id_prodi";
-    $nama_matakuliah = "SELECT * FROM matakuliah WHERE id_program_studi=$id_prodi";
+    // $nama_matakuliah = "SELECT * FROM matakuliah WHERE id_program_studi=$id_prodi";
 
-    $no_krs = "SELECT * FROM krs WHERE npm=$npm";
-    $khs = "SELECT * FROM khs WHERE no_krs=$no_krs";
+    // $no_krs = "SELECT * FROM krs WHERE npm=$npm";
+    // $khs = "SELECT * FROM khs WHERE no_krs=$no_krs";
 
-    $result = mysqli_query($conn, $nama_matakuliah);
-    $result2 = mysqli_query($conn, $khs);
+    // $result = mysqli_query($conn, $nama_matakuliah);
+    // $result2 = mysqli_query($conn, $khs);
 
-    if(mysqli_num_rows($result) == 0 ){
-        echo "<script>
-        alert('Data Transkrip Mahasiswa Tidak Ditemukan');
-        document.location.href = 'index.php';
-        </script>";
+    $query = "
+    SELECT m.*, k.*
+    FROM (
+        SELECT mk.*
+        FROM mahasiswa mh
+        JOIN program_studi ps ON mh.id_program_studi = ps.id_program_studi
+        JOIN matakuliah mk ON ps.id_program_studi = mk.id_program_studi
+        WHERE mh.npm = '$npm'
+    ) AS m
+    JOIN (
+        SELECT k.*
+        FROM krs k
+        JOIN khs h ON k.no_krs = h.no_krs
+        WHERE k.npm = '$npm'
+    ) AS k
+    ON m.id_program_studi = k.id_program_studi
+    ";
+
+    // Execute the query
+    $result = mysqli_query($conn, $query);
+
+    if($result){
+        while($row = mysqli_fetch_assoc($result)){
+            return $row;
+        }
     } else {
-        return $result;
+        echo "Error: " . mysqli_error($conn);
     }
 }
 
