@@ -209,7 +209,7 @@ body > * {
   }
 }
 
- {
-  background-color: none;
+button[name="logout"] {
+  background-color: transparent;
   border: none;
 }

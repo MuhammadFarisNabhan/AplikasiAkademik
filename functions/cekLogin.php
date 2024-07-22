@@ -20,11 +20,14 @@ if (isset($_POST["login"]) ) {
             header("Location: ../index.php");
             exit;
         } else {                        
-            echo "<script>alert('Password salah!'); window.location.href='login.php';</script>";
+            echo "<script>alert('Password salah!');</script>";
+            header("Location:login.php?message=gagal login");
+            exit;
         }
 
     } else {
         header("Location:login.php?message=gagal login");
+        exit;
     }
 }
 

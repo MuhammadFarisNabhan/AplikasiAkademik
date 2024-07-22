@@ -1,6 +1,11 @@
 <?php 
     include 'connection.php';
 
+function nama($nama){
+    $r = "Selamat Datang " . $nama;
+    return $r;
+}
+
 function tambah($data){
     global $conn;
 
@@ -48,43 +53,37 @@ function hapus($id){
     return mysqli_affected_rows($conn); 
 }
 
-function cekDataTranskrip($npm){
+function dashboardMahasiswa($npm){
     global $conn;
-    // $id_prodi = "SELECT mahasiswa.id_program_studi FROM mahasiswa WHERE npm=$npm";
-    // $nama_prodi = "SELECT * FROM program_studi WHERE id_program_studi=$id_prodi";
-    // $nama_matakuliah = "SELECT * FROM matakuliah WHERE id_program_studi=$id_prodi";
+    $query = "SELECT * FROM mahasiswa WHERE npm=$npm";
 
-    // $no_krs = "SELECT * FROM krs WHERE npm=$npm";
-    // $khs = "SELECT * FROM khs WHERE no_krs=$no_krs";
+    $result = mysqli_query($conn, $query);    
 
-    // $result = mysqli_query($conn, $nama_matakuliah);
-    // $result2 = mysqli_query($conn, $khs);
+    if(mysqli_num_rows($result) > 0){
+        // header("Location:../Views/dataTranskrip.php");
+        $row = mysqli_fetch_assoc($result);        
+        return $row;
+    } 
+    // else {
+    //     echo "<script>alert('NPM tidak terdaftar...')</script>";
+    //     header("Location:../login.php");
+    //     exit;
+    // }
+}
 
-    $query = "
-    SELECT m.*, k.*
-    FROM (
-        SELECT mk.*
-        FROM mahasiswa mh
-        JOIN program_studi ps ON mh.id_program_studi = ps.id_program_studi
-        JOIN matakuliah mk ON ps.id_program_studi = mk.id_program_studi
-        WHERE mh.npm = '$npm'
-    ) AS m
-    JOIN (
-        SELECT k.*
-        FROM krs k
-        JOIN khs h ON k.no_krs = h.no_krs
-        WHERE k.npm = '$npm'
-    ) AS k
-    ON m.id_program_studi = k.id_program_studi
-    ";
+function cekDataTranskrip($npm){
+    global $conn;    
 
-    // Execute the query
+    $query = "SELECT * FROM matakuliah AS mk
+    INNER JOIN khs ON mk.kode_matakuliah = khs.kode_matakuliah
+    WHERE khs.npm = $npm";
+    // INNER JOIN mahasiswa AS m ON khs.npm = $npm
+
     $result = mysqli_query($conn, $query);
 
-    if($result){
-        while($row = mysqli_fetch_assoc($result)){
-            return $row;
-        }
+    if(mysqli_num_rows($result) > 0){
+        $row = mysqli_fetch_assoc($result);
+        return $row;        
     } else {
         echo "Error: " . mysqli_error($conn);
     }

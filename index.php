@@ -1,10 +1,13 @@
 <?php 
     session_start();    
 
+    include './functions/functionMahasiswa.php';        
+
     if(!isset($_SESSION['npm'])){
         header("Location:login.php");
         exit;
-    } 
+    }
+    $row = dashboardMahasiswa($_SESSION['npm']);    
 ?>
 
 <!DOCTYPE html>
@@ -22,50 +25,20 @@
     </div>
     <div class="container">
         <div class="sidebar" id="sidebar">
-            <form action="./functions/functionMahasiswa.php" method="post">
-                <a href="#">
-                    <button type="submit" name="cektranskrip">Data Transkrip</button>
-                </a>
-                <a href="#">
-                    <button type="submit" name="historyNilai">Histori Nilai</button>
-                </a>
-                <a href="#">
-                    <button type="submit" name="jadwalPribadi">Jadwal Pribadi</button>
-                </a>
-                <a href="#">
-                    <button type="submit" name="mengikisKRS">Mengisi KRS</button>
-                </a>
-                <a href="#">
-                    <button type="submit" name="jadwalPA">Jadwal PA</button>
-                </a>
-                <a href="#">
-                    <button type="submit" name="beritaAcaraPA">Berita Acara PA</button>
-                </a>                
-                <a href="#">
-                    <button type="submit" name="cetakKRS_KHS">Cetak KRS / KPU</button>
-                </a>                
-                <a href="#">
-                    <button type="submit" name="dataPribadi">Data Pribadi</button>
-                </a>                
-                <a href="#">
-                    <button type="submit" name="kuesionerDosen">Kuesioner Dosen</button>
-                </a>                
-                <a href="#">
-                    <button type="submit" name="kuesionerKepuasan">Kuesioner Kepuasan</button>
-                </a>                
-                <a href="#">
-                    <button type="submit" name="kehadiranKuliah">Kehadiran Kuliah</button>
-                </a>                
-                <a href="#">
-                    <button type="submit" name="rencanaPembelajaran">Rencana Pembelajaran (RPS)</button>
-                </a>                
-                <a href="#">
-                    <button type="submit" name="nilaiSemesterAktif">Nilai Semester Aktif</button>
-                </a>                
-                <a href="#">
-                    <button type="submit" name="dataKeuangan">Data Keuangan</button>
-                </a>                                
-            </form>
+            <a href="./Views/dataTranskrip.php">Data Transkrip</a>
+            <a href="./Views/historyNilai.php">History Nilai</a>
+            <a href="./Views/jadwalPribadi.php">Jadwal Pribadi</a>
+            <a href="./Views/mengisiKRS.php">Mengisi KRS</a>
+            <a href="./Views/jadwalPA.php">Jadwal PA</a>
+            <a href="./Views/beritaAcaraPA.php">Berita Acara PA</a>                
+            <a href="./Views/cetakKRS_KPU.php">Cetak KRS / KPU</a>                
+            <a href="./Views/dataPribadi.php">Data Pribadi</a>                
+            <a href="./Views/kuesionerDosen.php">Kuesioner Dosen</a>                
+            <a href="./Views/kuesionerKepuasan.php">Kuesioner Kepuasan</a>                
+            <a href="./Views/kehadiranKuliah.php">Kehadiran Kuliah</a>                
+            <a href="./Views/rencanaPembelajaran.php">Rencana Pembelajaran (RPS)</a>                
+            <a href="./Views/nilaiSemesterAktif.php">Nilai Semester Aktif</a>                
+            <a href="./Views/dataKeuangan.php">Data Keuangan</a>                                            
             
             <form action="./functions/cekLogin.php" method="post">
                 <a>
@@ -77,13 +50,13 @@
             <button class="toggle-btnn" onclick="toggleSidebar()">☰</button>
             <div class="profile-info">
                 <img src="../Kerja_Praktek/Media/Universitas_Nasional_Logo.png" alt="Profile Picture" width="80" height="80">
-                <div>
-                    <span><strong>Nama:</strong> Taufik Hidayat</span>
-                    <span><strong>NPM:</strong> 217064516068</span>
+                <div>                    
+                    <span><strong>Nama:</strong> <?= $row['nama']; ?></span>
+                    <span><strong>NPM:</strong> <?= $row['npm']; ?></span>
                     <span><strong>Prodi:</strong> Informatika</span>
                     <span><strong>Status:</strong> Aktif</span>
                     <span><strong>IPK:</strong> 3.56</span>
-                    <span><strong>Saldo:</strong> 0</span>
+                    <span><strong>Saldo:</strong> 0</span>                                    
                 </div>
             </div>
             <div class="actions">

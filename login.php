@@ -36,9 +36,9 @@ if (isset($_SESSION["npm"]) ) {
                     <i class='bx bxs-lock-alt' ></i>
                 </div>
                 <button type="submit" class="btn animation" name="login" style="--i:3; --j:24;">Login</button>
-                <!-- <div class="logreg-link animation" style="--i:4; --j:25;">
+                <div class="logreg-link animation" style="--i:4; --j:25;">
                     <p>Don't have an account ? <a href="#" class="register-link">Sign Up</a></p>
-                </div> -->
+                </div>
             </form>
         </div>
         <div class="info-text login">
@@ -47,25 +47,38 @@ if (isset($_SESSION["npm"]) ) {
             <p class="animation" style="--i:1; --j:22;">Login to access your account.</p>
         </div>
         
-        <!-- <div class="form-box register">
+        <div class="form-box register">
             <h2 class="animation" style="--i:17; --j:0;">Sign Up</h2>
-            <form action="register.php" method="POST">
+            <form action="./functions/register.php" method="POST">
                 <div class="input-box animation" style="--i:18; --j:1;">
-                    <input type="text" required>
-                    <label>Username</label>
+                    <input type="number" name="npm" required>
+                    <label>NPM</label>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box animation" style="--i:18; --j:1;">
+                    <input type="text" name="nama" required>
+                    <label>Nama</label>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box animation" style="--i:19; --j:2;">
-                    <input type="text" required>
+                    <input type="email" name="email" required>
                     <label>Email</label>
                     <i class='bx bxs-envelope' ></i>
                 </div>
                 <div class="input-box animation" style="--i:20; --j:3;">
-                    <input type="password" required>
+                    <input type="password" name="password" required>
                     <label>Password</label>
                     <i class='bx bxs-lock-alt' ></i>
                 </div>
-                <button type="submit" class="btn animation" style="--i:21; --j:4;">Sign Up</button>
+                <div class="input-box animation" style="--i:20; --j:3;">
+                    <input type="text" name="alamat" required>
+                    <label>Alamat</label>                    
+                </div>                                
+                <div class="input-box animation" style="--i:20; --j:3;">
+                    <input type="number" name="telepon" required>
+                    <label>Telephon</label>                    
+                </div>
+                <button type="submit" class="btn animation" name="signUp" style="--i:21; --j:4;">Sign Up</button>
                 <div class="logreg-link animation" style="--i:22; --j:5;">
                     <p>Already have an account ? <a href="#" class="login-link">Login</a></p>
                 </div>
@@ -75,7 +88,7 @@ if (isset($_SESSION["npm"]) ) {
             <img src="./Media/Universitas_Nasional_Logo.png" alt="Universitas_Nasional_Logo"class="animation" style="--i:17; --j:0;">
             <h2 class="animation" style="--i:18; --j:1;">Welcome back!</h2>
             <p class="animation" style="--i:19; --j:2;">Register</p>
-        </div> -->
+        </div>
     </div>
 
     <script src="./Js/script.js"></script>
